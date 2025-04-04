@@ -3,7 +3,10 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use App\Models\Setting;
+use App\Models\{
+    Setting,
+    RelatedNewsSite,
+};
 
 class CheckSettingProvider extends ServiceProvider
 {
@@ -35,8 +38,12 @@ class CheckSettingProvider extends ServiceProvider
                 'street'     => '123 Main St',
        ]);
 
+       //share related sites
+        $relatedSites = RelatedNewsSite::select('name','url')->get();
+
        view()->share([
            'setting' => $setting,
+           'relatedSites' => $relatedSites
        ]);
     }
 }
