@@ -20,7 +20,7 @@ class CheckSettingProvider extends ServiceProvider
      */
     public function boot(): void
     {
-         Setting::firstOrCreate([], [
+       $setting = Setting::firstOrCreate([], [
                 'site_name'  => 'News App',
                 'email'      => 'News@gmail.com',
                 'favicon'    => 'favicon.ico',
@@ -33,6 +33,10 @@ class CheckSettingProvider extends ServiceProvider
                 'country'    => 'Egypt',
                 'city'       => 'Cairo',
                 'street'     => '123 Main St',
-        ]);
+       ]);
+
+       view()->share([
+           'setting' => $setting,
+       ]);
     }
 }
