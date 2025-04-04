@@ -52,10 +52,11 @@
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                   Vivamus sed porta dui. Class aptent taciti sociosqu
                 </p>
-                <form>
+                <form action="{{ route('web.news.subscribe') }}" method="post">
+                  @csrf
                   <input
                     class="form-control"
-                    type="email"
+                    type="email" name="email"
                     placeholder="Your email here"
                   />
                   <button class="btn">Submit</button>

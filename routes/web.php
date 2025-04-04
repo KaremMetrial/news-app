@@ -3,11 +3,18 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Web\{
     HomeController,
+    NewsSubscriberController,
 };
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [HomeController::class, 'index'])->name('web.index');
+
+Route::group(['as' => 'web.'],function() {
+
+    Route::get('/', [HomeController::class, 'index'])->name('index');
+
+    Route::post('news-subscribe', [NewsSubscriberController::class, 'store'])->name('news.subscribe');
+});
 
 Route::get('/dashboard', function () {
     return view('dashboard');
