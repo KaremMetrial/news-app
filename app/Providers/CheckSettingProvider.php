@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use App\Models\{
     Setting,
     RelatedNewsSite,
+    Category,
 };
 
 class CheckSettingProvider extends ServiceProvider
@@ -41,9 +42,13 @@ class CheckSettingProvider extends ServiceProvider
        //share related sites
         $relatedSites = RelatedNewsSite::select('name','url')->get();
 
+       //categories
+       $categories = Category::select('id', 'name', 'slug')->get();
+
        view()->share([
            'setting' => $setting,
-           'relatedSites' => $relatedSites
+           'relatedSites' => $relatedSites,
+           'categories' => $categories,
        ]);
     }
 }

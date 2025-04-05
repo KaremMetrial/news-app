@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Web\{
     HomeController,
     NewsSubscriberController,
+    CategoryController,
 };
 
 use Illuminate\Support\Facades\Route;
@@ -14,6 +15,8 @@ Route::group(['as' => 'web.'],function() {
     Route::get('/', [HomeController::class, 'index'])->name('index');
 
     Route::post('news-subscribe', [NewsSubscriberController::class, 'store'])->name('news.subscribe');
+
+    Route::get('category/{slug}', CategoryController::class)->name('category.posts');
 });
 
 Route::get('/dashboard', function () {
