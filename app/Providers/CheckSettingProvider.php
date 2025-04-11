@@ -3,7 +3,11 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use App\Models\Setting;
+use App\Models\{
+    Setting,
+    RelatedNewsSite,
+    Category,
+};
 
 class CheckSettingProvider extends ServiceProvider
 {
@@ -20,7 +24,7 @@ class CheckSettingProvider extends ServiceProvider
      */
     public function boot(): void
     {
-         Setting::firstOrCreate([], [
+       $setting = Setting::firstOrCreate([], [
                 'site_name'  => 'News App',
                 'email'      => 'News@gmail.com',
                 'favicon'    => 'favicon.ico',
@@ -33,6 +37,18 @@ class CheckSettingProvider extends ServiceProvider
                 'country'    => 'Egypt',
                 'city'       => 'Cairo',
                 'street'     => '123 Main St',
-        ]);
+       ]);
+
+       //share related sites
+        $relatedSites = RelatedNewsSite::select('name','url')->get();
+
+       //categories
+       $categories = Category::select('id', 'name', 'slug')->get();
+
+       view()->share([
+           'setting' => $setting,
+           'relatedSites' => $relatedSites,
+           'categories' => $categories,
+       ]);
     }
 }
